@@ -8,8 +8,8 @@ import java.io.IOException;
 
 public class Button extends Component{
 
-    private BufferedImage btnSprite;
-    private BufferedImage btnSpriteHovered;
+    private Image btnSprite;
+    private Image btnSpriteHovered;
 
     public int width;
     public int height;
@@ -29,12 +29,12 @@ public class Button extends Component{
         File FbtnH = new File("img/gui/buttonHovered.png");
         init(width, height, txt, ImageIO.read(Fbtn), ImageIO.read(FbtnH));
     }
-    public Button(int width, int height, int x, int y, int action, String txt, BufferedImage sprite, BufferedImage spriteHover){
+    public Button(int width, int height, int x, int y, int action, String txt, Image sprite, Image spriteHover){
         super(x, y, action);
         init(width, height, txt, sprite, spriteHover);
     }
 
-    private void init(int w, int h, String txt, BufferedImage btnSprite, BufferedImage btnSpriteHovered){
+    private void init(int w, int h, String txt, Image btnSprite, Image btnSpriteHovered){
         this.width = w;
         this.height = h;
         this.btnSprite = btnSprite;
@@ -62,7 +62,7 @@ public class Button extends Component{
     }
 
     // Dessiner le bouton
-    public void draw(Graphics2D g2d) throws IOException {
+    public void draw(Graphics2D g2d) {
 
         g2d.drawImage(hovered ? btnSpriteHovered : btnSprite, getX(), getY(), width, height, null);
 

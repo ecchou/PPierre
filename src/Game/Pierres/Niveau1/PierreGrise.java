@@ -2,24 +2,29 @@ package Game.Pierres.Niveau1;
 
 import Game.Pierres.Pierre;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 public class PierreGrise extends Pierre {
 
     private final static int ID = 1;
 
-    private final static int NIVEAU = 1;
-    private final static double PRIX_INITIAL = 1;
-    private final static String NOM = "Pierre Grise";
+    private final static int LEVEL = 1;
+    private final static double INITIAL_PRICE = 1;
+    private final static String NAME = "Pierre Grise";
     private final static String SPRITE = "img/game/pierres/grise.png";
 
-    public PierreGrise(int joueur){
-        super(joueur, PRIX_INITIAL, false);
+    public PierreGrise(int joueur) throws IOException {
+        super(joueur, INITIAL_PRICE);
     }
 
+    ///  GETTERS
     public int getID(){return ID;}
-
-    public int getNiveau(){return NIVEAU;}
-    public double getPrixInitial(){return PRIX_INITIAL;}
-    public String getNom(){return NOM;}
-    public String getCheminImage(){return SPRITE;}
+    public int getLevel(){return LEVEL;}
+    public double getInitialPrice(){return INITIAL_PRICE;}
+    public String getName(){return NAME;}
+    public String getImagePath(){return SPRITE;}
 
 }

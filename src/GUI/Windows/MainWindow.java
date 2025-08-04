@@ -10,7 +10,9 @@ import java.util.List;
 
 public class MainWindow extends Window{
 
-    private List<Scene> scenes;
+    private List<Scene> scenes = List.of(
+            new MainMenu()
+    );
     private int currentScene;
 
     private final Color bgGradient1 = new Color(50, 160, 160);
@@ -18,11 +20,6 @@ public class MainWindow extends Window{
 
     public MainWindow() throws IOException {
         super("Test", 800, 600);
-
-        List<Scene> scenes = new ArrayList<>();
-        scenes.add(new MainMenu());     // Menu Principal : ID 0
-
-        this.scenes = scenes;
         switchScene(0);
     }
 
@@ -31,6 +28,7 @@ public class MainWindow extends Window{
         this.currentScene = index;
     }
 
+    // peut être plutôt à déléguer à la scène
     @Override
     protected void drawBG(Graphics2D g2d){
         GradientPaint gradient = new GradientPaint(0, 0, bgGradient1, 0, getHeight(), bgGradient2);
@@ -39,7 +37,22 @@ public class MainWindow extends Window{
     }
 
     public void action(int action){
+
+        if (currentScene == 0){
+            action_mainMenu(action);
+        }
+
+    }
+
+    private void action_mainMenu(int action){
+
+        if (action == -1){
+            System.exit(0);
+            return;
+        }
+
         System.out.println("Bouton " + action + " cliqué!");
+
     }
 
 }

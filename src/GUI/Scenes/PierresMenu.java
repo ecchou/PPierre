@@ -9,11 +9,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainMenu extends Scene {
+public class PierresMenu extends Scene {
 
-    public MainMenu() throws IOException {
+    public PierresMenu() throws IOException {
 
         super(new ArrayList<Component>());
 
