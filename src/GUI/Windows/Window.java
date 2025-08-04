@@ -153,6 +153,7 @@ public abstract class Window extends JFrame {
 
         // Mise à jour des hover si souris bougée
         if (mouseMoved) {
+            //System.out.println(mouseX + " ; " + mouseY);
             for (Component component : components)
                 component.setHovered(mouseX, mouseY);
             mouseMoved = false;

@@ -13,20 +13,22 @@ import java.util.List;
 
 public class MainMenu extends Scene {
 
+    // Action 0 : Rien
+    // Action 1 :
+    // Action 2 :
+    // Action 3 :
+    // Action 4 : Infos Pierres
+
+    private final Color bgGradient1 = new Color(50, 160, 160);
+    private final Color bgGradient2 = new Color(0, 200, 200);
+
     public MainMenu() throws IOException {
 
         super(new ArrayList<Component>());
 
-        final int WIDTH = 800;
-        //final int HEIGHT = 600;
-
         ///  BOUTONS
-        Image sprCloseButton = ImageIO.read(new File("img/gui/buttonClose.png"));
-        Image sprCloseButtonHovered = ImageIO.read(new File("img/gui/buttonCloseHovered.png"));
         final int MAINBUTTON_WIDTH = 300;
         final int MAINBUTTON_HEIGHT = 80;
-        final int CLOSEBUTTON_SIZE = 50;
-        addComponent(new Button(CLOSEBUTTON_SIZE, CLOSEBUTTON_SIZE, WIDTH-20-CLOSEBUTTON_SIZE, 20, -1, null, sprCloseButton, sprCloseButtonHovered));
         addComponent(new Button(MAINBUTTON_WIDTH, MAINBUTTON_HEIGHT, WIDTH/2-MAINBUTTON_WIDTH-20, 300, 1, "Rejoindre"));
         addComponent(new Button(MAINBUTTON_WIDTH, MAINBUTTON_HEIGHT, WIDTH/2-MAINBUTTON_WIDTH-20, 400, 2, "Créer"));
         addComponent(new Button(MAINBUTTON_WIDTH, MAINBUTTON_HEIGHT, WIDTH/2+20, 300, 3, "Deck"));
@@ -35,6 +37,13 @@ public class MainMenu extends Scene {
         ///  IMAGES
         addComponent(new Picture(WIDTH/2-500/2, 50, 500, 200, 0, "img/logo.png"));
 
+    }
+
+    @Override
+    public void drawBG(Graphics2D g2d){
+        GradientPaint gradient = new GradientPaint(0, 0, bgGradient1, 0, HEIGHT, bgGradient2);
+        g2d.setPaint(gradient);
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
 }

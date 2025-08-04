@@ -54,11 +54,13 @@ public class Button extends Component{
     // Set Hover soit en forçant soit avec des coordonnées de souris.
     public void setHovered(boolean hovered) {this.hovered = hovered;}
     public void setHovered(int x, int y){
-        this.hovered = false;
+        //System.out.println("Test : " + getX() + " " + getY() + " " + x + " " + y + " " + this.width + " " + this.height);
         if (x >= getX() && x <= getX() + this.width)
             if (y >= getY() && y <= getY() + this.height) {
                 this.hovered = true;
+                return;
             }
+        this.hovered = false;
     }
 
     // Dessiner le bouton
