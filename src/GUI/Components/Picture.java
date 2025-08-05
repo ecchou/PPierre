@@ -13,7 +13,7 @@ public class Picture extends Component{
     private int height;
 
     ///  CONSTRUCTEURS
-    public Picture(int x, int y, int width, int height, int action, BufferedImage image){
+    public Picture(int x, int y, int width, int height, int action, Image image){
         // BufferedImage donnée direct
         super(x, y, action);
         init(image, width, height);
@@ -25,12 +25,12 @@ public class Picture extends Component{
         init(img, width, height);
     }
 
+
     private void init(Image img, int w, int h){
         this.image = img;
         this.width = w;
         this.height = h;
     }
-
 
     public void draw(Graphics2D g2d){
 

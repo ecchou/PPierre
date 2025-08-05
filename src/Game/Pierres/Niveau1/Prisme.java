@@ -9,7 +9,7 @@ public class Prisme extends Pierre {
     private final static int ID = 2;
 
     private final static int LEVEL = 1;
-    private final static double INITIAL_PRICE = 3;
+    private final static double INITIAL_PRICE = 8;
     private final static String NAME = "Prisme";
     private final static String SPRITE = "img/game/pierres/prisme.png";
 

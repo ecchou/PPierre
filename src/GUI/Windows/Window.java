@@ -176,15 +176,21 @@ public abstract class Window extends JFrame {
     ///  INTERACTIONS
     public void press(int x, int y) {
         for (Component component : components) {
-            if (component.getHovered())
+            if (component.isHovered())
                 clicking.add(component);
         }
     }
 
     public void release(int x, int y) {
         for (Component component : components) {
-            if (component.getHovered() && clicking.contains(component))
-                action(component.getAction());
+            if (component.isHovered() && clicking.contains(component)){
+                try {
+                    action(component.getAction());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
         clicking.clear();
     }
@@ -202,5 +208,5 @@ public abstract class Window extends JFrame {
         components.remove(component);
     }
 
-    public abstract void action(int action);
+    public abstract void action(int action) throws IOException;
 }

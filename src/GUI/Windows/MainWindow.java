@@ -31,13 +31,17 @@ public class MainWindow extends Window{
         this.currentScene = index;
     }
 
+    public void updateScene(){
+        setComponents(scenes.get(currentScene).getComponents());
+    }
+
     // peut être plutôt à déléguer à la scène
     @Override
     protected void drawBG(Graphics2D g2d){
         scenes.get(currentScene).drawBG(g2d);
     }
 
-    public void action(int action){
+    public void action(int action) throws IOException {
 
         System.out.println("Action" + currentScene + ": " + action);
 
@@ -58,10 +62,13 @@ public class MainWindow extends Window{
 
     }
 
-    private void action_pierresMenu(int action){
+    private void action_pierresMenu(int action) throws IOException {
 
-        switch(action){
-            case -1 -> switchScene(0);
+        if (action == -1)
+            switchScene(0);
+        else if (action != 0){
+            scenes.get(1).handleAction(action);
+            updateScene();
         }
 
     }

@@ -2,18 +2,16 @@ package GUI.Components;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Button extends Component{
+public class Button extends ClickableComponent{
 
     private Image btnSprite;
     private Image btnSpriteHovered;
 
     public int width;
     public int height;
-    public boolean hovered = false;
 
     private String text;
     private Text textElement;
@@ -25,7 +23,7 @@ public class Button extends Component{
     public Button(int width, int height, int x, int y, int action, String txt) throws IOException {
         super(x, y, action);
 
-        File Fbtn = new File("img/gui/button.png");
+        File Fbtn = new File(getDefaultSpritePath());
         File FbtnH = new File("img/gui/buttonHovered.png");
         init(width, height, txt, ImageIO.read(Fbtn), ImageIO.read(FbtnH));
     }
@@ -49,30 +47,40 @@ public class Button extends Component{
 
     }
 
-    public boolean getHovered(){return this.hovered;}
-
     // Set Hover soit en forçant soit avec des coordonnées de souris.
-    public void setHovered(boolean hovered) {this.hovered = hovered;}
     public void setHovered(int x, int y){
         //System.out.println("Test : " + getX() + " " + getY() + " " + x + " " + y + " " + this.width + " " + this.height);
         if (x >= getX() && x <= getX() + this.width)
             if (y >= getY() && y <= getY() + this.height) {
-                this.hovered = true;
+                setHovered(true);
                 return;
             }
-        this.hovered = false;
+        setHovered(false);
     }
 
     // Dessiner le bouton
     public void draw(Graphics2D g2d) {
 
-        g2d.drawImage(hovered ? btnSpriteHovered : btnSprite, getX(), getY(), width, height, null);
+        g2d.drawImage(isHovered() ? btnSpriteHovered : btnSprite, getX(), getY(), width, height, null);
+        drawText(g2d);
 
+    }
+
+    protected void drawText(Graphics2D g2d){
         if (this.textElement != null){
-            textElement.setColor(hovered ? textColorHovered : textColor);
+            textElement.setColor(isHovered() ? textColorHovered : textColor);
             textElement.draw(g2d);
         }
+    }
+    protected void drawText(Graphics2D g2d, Color c){
+        if (this.textElement != null){
+            textElement.setColor(c);
+            textElement.draw(g2d);
+        }
+    }
 
+    protected String getDefaultSpritePath(){
+        return "img/gui/button.png";
     }
 
 }

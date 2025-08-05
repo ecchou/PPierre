@@ -18,9 +18,9 @@ public abstract class Pierre {
     private final static int FRAME_HEIGHT = 300;
     private final static Point FRAME_PIERRE_LOCATION = new Point(52, 35);
     private final static int FRAME_PIERRE_SIZE = 96;
-    private final static Point FRAME_NAME_LOCATION = new Point(FRAME_WIDTH / 2, 145);
+    private final static Point FRAME_NAME_LOCATION = new Point(FRAME_WIDTH / 2, 155);
     private final static Point FRAME_PRICE_LOCATION = new Point(FRAME_WIDTH / 2, 220);
-    private final static int FRAME_PRICE_SIZE = 30;
+    private final static int FRAME_PRICE_SIZE = 50;
     private final static List<String> framePaths = List.of(
             "img/game/frames/1.png",
             "img/game/frames/2.png",
@@ -49,6 +49,7 @@ public abstract class Pierre {
     public abstract double getInitialPrice();
     public abstract String getName();
     public abstract String getImagePath();
+    public String getDescription(){return "";}  // A RENDRE ABSTRAIT
 
     ///  GETTERS
     public int getPlayer(){
@@ -60,7 +61,6 @@ public abstract class Pierre {
     public boolean isFrozen(){
         return frozen;
     }
-    protected void forceSetFreeze(boolean gel){ this.frozen = gel;}
     public Image getSprite() throws IOException { return ImageIO.read(new File(getImagePath())); }
 
     ///  SETTERS
@@ -102,6 +102,7 @@ public abstract class Pierre {
     }
 
     ///  GAMEPLAY
+    protected void forceSetFreeze(boolean gel){ this.frozen = gel;}
     public boolean freeze(){
         forceSetFreeze(true);
         return true;

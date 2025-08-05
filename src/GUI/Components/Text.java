@@ -37,10 +37,15 @@ public class Text extends Component{
         this.font = new Font("Arial", Font.PLAIN, fontSize);
     }
 
+    ///  GETTERS
+    public Font getFont(){return this.font;}
+    public Color getColor(){return this.color;}
+    public String getText(){return this.text;}
+    public Padding getPadding(){return this.padding;}
+
     ///  DESSIN
-    public void setColor(Color c){
-        this.color = c;
-    }
+    public void setText(String text){this.text = text;}
+    public void setColor(Color c){this.color = c;}
     public void draw(Graphics2D g2d){
         if (g2d.getFont() != font)
             g2d.setFont(font);

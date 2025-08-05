@@ -11,7 +11,6 @@ public class Main {
 
         Window window = new MainWindow();
 
-        ///  AJOUTER COULEUR HOVER AU TEXTE DE BOUTON puis on peut faire un mainmenu!
         SwingUtilities.invokeLater(() -> {
             try {
                 window.init();

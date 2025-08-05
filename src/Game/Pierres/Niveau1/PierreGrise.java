@@ -27,4 +27,8 @@ public class PierreGrise extends Pierre {
     public String getName(){return NAME;}
     public String getImagePath(){return SPRITE;}
 
+    public String getDescription(){
+        return "Ceci est une description de Pierre!";
+    }
+
 }

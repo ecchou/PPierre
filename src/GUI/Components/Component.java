@@ -26,7 +26,7 @@ public abstract class Component {
     public int getX(){return x;}
     public int getY(){return y;}
     public int getAction(){return action;}
-    public boolean getHovered(){return false;}
+    public boolean isHovered(){return false;}
 
     /// SETTERS
     public void setX(int x){
