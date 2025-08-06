@@ -12,6 +12,10 @@ public class Glace extends Pierre {
     private final static double INITIAL_PRICE = 6;
     private final static String NAME = "Glace";
     private final static String SPRITE = "img/game/pierres/glace.png";
+    private final static String DESCRIPTION =
+            "Au placement, permet de glacer une Pierre au choix sur la même Ligne ou Colonne." +
+                    "Une pierre glacée compte toujours dans le score mais ne permet plus à son" +
+                    "propriétaire de placer une autre pierre à proximité.";
 
     public Glace(int joueur) throws IOException {
         super(joueur, INITIAL_PRICE);
@@ -23,5 +27,8 @@ public class Glace extends Pierre {
     public double getInitialPrice(){return INITIAL_PRICE;}
     public String getName(){return NAME;}
     public String getImagePath(){return SPRITE;}
+    public String getDescription(){
+        return DESCRIPTION;
+    }
 
 }

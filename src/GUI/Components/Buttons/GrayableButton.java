@@ -1,14 +1,15 @@
-package GUI.Components;
+package GUI.Components.Buttons;
 
 import GUI.ImageUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class GrayableButton extends Button{
+
+    ///  Bouton pouvant être grisé
 
     private Image grayedSprite;
     private boolean grayed;

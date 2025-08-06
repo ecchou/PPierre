@@ -1,8 +1,10 @@
-package GUI.Components;
+package GUI.Components.Texts;
+
+import GUI.Components.Component;
 
 import java.awt.*;
 
-public class Text extends Component{
+public class Text extends Component {
 
     public enum Padding{
         LEFT,

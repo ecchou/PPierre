@@ -12,6 +12,9 @@ public class Torche extends Pierre {
     private final static double INITIAL_PRICE = 4;
     private final static String NAME = "Torche";
     private final static String SPRITE = "img/game/pierres/torche.png";
+    private final static String DESCRIPTION =
+            "Au placement, brûle une case vide choisie sur la même Ligne ou Colonne jusqu'au début de votre prochain tour." +
+                    "Aucune pierre ne peut être posée sur une case brûlée (sauf pierre immunisée).";
 
     public Torche(int joueur) throws IOException {
         super(joueur, INITIAL_PRICE);
@@ -23,5 +26,8 @@ public class Torche extends Pierre {
     public double getInitialPrice(){return INITIAL_PRICE;}
     public String getName(){return NAME;}
     public String getImagePath(){return SPRITE;}
+    public String getDescription(){
+        return DESCRIPTION;
+    }
 
 }

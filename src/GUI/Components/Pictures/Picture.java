@@ -1,12 +1,13 @@
-package GUI.Components;
+package GUI.Components.Pictures;
+
+import GUI.Components.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Picture extends Component{
+public class Picture extends Component {
 
     private Image image;
     private int width;

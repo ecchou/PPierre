@@ -1,15 +1,12 @@
 package GUI.Scenes;
 
-import GUI.Components.Button;
+import GUI.Components.Buttons.Button;
 import GUI.Components.Component;
-import GUI.Components.Picture;
+import GUI.Components.Pictures.Picture;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainMenu extends Scene {
 

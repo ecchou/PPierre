@@ -1,6 +1,6 @@
 package Game.Pierres;
 
-import GUI.Components.Text;
+import GUI.Components.Texts.Text;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -49,7 +49,7 @@ public abstract class Pierre {
     public abstract double getInitialPrice();
     public abstract String getName();
     public abstract String getImagePath();
-    public String getDescription(){return "";}  // A RENDRE ABSTRAIT
+    public abstract String getDescription();
 
     ///  GETTERS
     public int getPlayer(){

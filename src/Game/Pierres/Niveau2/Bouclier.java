@@ -1,24 +1,22 @@
-package Game.Pierres.Niveau1;
+package Game.Pierres.Niveau2;
 
 import Game.Pierres.Pierre;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
-public class PierreGrise extends Pierre {
+public class Bouclier extends Pierre {
 
-    private final static int ID = 1;
+    private final static int ID = 9;
 
-    private final static int LEVEL = 1;
-    private final static double INITIAL_PRICE = 2;
-    private final static String NAME = "Pierre Grise";
+    private final static int LEVEL = 2;
+    private final static double INITIAL_PRICE = 10;
+    private final static String NAME = "Bouclier";
     private final static String SPRITE = "img/game/pierres/grise.png";
     private final static String DESCRIPTION =
-            "Aucun effet spécial.";
+            "Immunisé à tous les effets offensifs (Gel, Feu, Zap, Explosion). " +
+            "Donne également ce pouvoir aux 4 pierres autour (en forme de +).";
 
-    public PierreGrise(int joueur) throws IOException {
+    public Bouclier(int joueur) throws IOException {
         super(joueur, INITIAL_PRICE);
     }
 

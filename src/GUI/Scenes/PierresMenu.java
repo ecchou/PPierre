@@ -1,11 +1,12 @@
 package GUI.Scenes;
 
-import GUI.Components.*;
-import GUI.Components.Button;
+import GUI.Components.Buttons.Button;
+import GUI.Components.Buttons.GrayableButton;
 import GUI.Components.Component;
-import GUI.Windows.MainWindow;
-import GUI.Windows.Window;
-import Game.Pierres.Niveau1.PierreGrise;
+import GUI.Components.Pictures.ClickablePicture;
+import GUI.Components.Pictures.Picture;
+import GUI.Components.Texts.MultilineText;
+import GUI.Components.Texts.Text;
 import Game.Pierres.Pierre;
 import Game.Pierres.PierreGEN;
 
@@ -68,8 +69,7 @@ public class PierresMenu extends Scene {
 
     }
 
-    @Override
-    public void drawBG(Graphics2D g2d){
+    @Override public void drawBG(Graphics2D g2d){
         g2d.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);
     }
 
@@ -125,7 +125,7 @@ public class PierresMenu extends Scene {
                 455,
                 300,
                 16,
-                "Ceci est une description de Pierre qui comporte (normalement) des <<color=#ff0000>>COULEURS!",
+                pierreInfo.getDescription(),
                 Text.Padding.LEFT,
                 Color.BLACK,
                 315,

@@ -1,11 +1,14 @@
-package GUI.Components;
+package GUI.Components.Buttons;
+
+import GUI.Components.ClickableComponent;
+import GUI.Components.Texts.Text;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Button extends ClickableComponent{
+public class Button extends ClickableComponent {
 
     private Image btnSprite;
     private Image btnSpriteHovered;
@@ -78,9 +81,23 @@ public class Button extends ClickableComponent{
             textElement.draw(g2d);
         }
     }
+    protected void drawText(Graphics2D g2d, Color c, Text txtE){
+        if (txtE != null){
+            txtE.setColor(c);
+            txtE.draw(g2d);
+        }
+    }
+    protected void drawText(Graphics2D g2d, Text txtE){
+        if (txtE != null){
+            txtE.draw(g2d);
+        }
+    }
 
+    ///  GETTERS
     protected String getDefaultSpritePath(){
         return "img/gui/button.png";
     }
+    public int getWidth(){return this.width;}
+    public int getHeight(){return this.height;}
 
 }

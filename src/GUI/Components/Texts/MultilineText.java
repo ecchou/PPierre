@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.Texts;
 
 import java.awt.*;
 import java.util.*;

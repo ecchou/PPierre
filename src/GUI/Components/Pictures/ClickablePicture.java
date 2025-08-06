@@ -1,11 +1,12 @@
-package GUI.Components;
+package GUI.Components.Pictures;
 
+import GUI.Components.ClickableComponent;
 import GUI.ImageUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ClickablePicture extends ClickableComponent{
+public class ClickablePicture extends ClickableComponent {
 
     private int width;
     private int height;

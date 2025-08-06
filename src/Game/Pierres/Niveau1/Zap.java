@@ -12,6 +12,9 @@ public class Zap extends Pierre {
     private final static double INITIAL_PRICE = 7;
     private final static String NAME = "Zap";
     private final static String SPRITE = "img/game/pierres/zap.png";
+    private final static String DESCRIPTION =
+            "Au placement, permet de Zap une Pierre au choix sur la même Ligne ou Colonne." +
+                    "Une pierre Zappée est détruite instantannément si elle n'est pas immunisée.";
 
     public Zap(int joueur) throws IOException {
         super(joueur, INITIAL_PRICE);
@@ -23,5 +26,8 @@ public class Zap extends Pierre {
     public double getInitialPrice(){return INITIAL_PRICE;}
     public String getName(){return NAME;}
     public String getImagePath(){return SPRITE;}
+    public String getDescription(){
+        return DESCRIPTION;
+    }
 
 }

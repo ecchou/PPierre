@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class PierreGEN {
 
-    private final static int MAX_ID = 8;
+    private final static int MAX_ID = 9;
 
     public static Integer getMaxID(){
         return MAX_ID;
@@ -25,6 +25,7 @@ public class PierreGEN {
             case 6 -> new Zap(joueur);
             case 7 -> new Copieur(joueur);
             case 8 -> new Bombe(joueur);
+            case 9 -> new Bouclier(joueur);
             default -> null;
         };
 
