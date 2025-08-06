@@ -12,6 +12,8 @@ import java.util.Map;
 
 public class DeckManager {
 
+    private static final int MAX_COUNT = 100;
+
     private static int deckCount = 0;
     private static Map<Integer, Deck> decks = new HashMap<>();
 
@@ -22,6 +24,8 @@ public class DeckManager {
 
     ///  SETTERS
     public static void addDeck(Deck d){
+        if (deckCount>=MAX_COUNT)
+            return;
         deckCount++;
         decks.put(deckCount, d);
     }

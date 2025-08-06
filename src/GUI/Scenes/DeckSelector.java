@@ -5,6 +5,7 @@ import GUI.Components.Buttons.GrayableButton;
 import GUI.Components.Buttons.SelectorButton;
 import GUI.Components.Component;
 import Game.Decks.DeckManager;
+import Game.Pierres.PierreGEN;
 
 import javax.imageio.ImageIO;
 import java.util.List;
@@ -23,14 +24,18 @@ public abstract class DeckSelector extends Scene {
     private Image bg = ImageIO.read(new File("img/gui/deckSelectMenu.png"));
 
     private int page;
+    private int pageMax;
     private GrayableButton buttonPrev;
     private GrayableButton buttonNext;
+
 
 
 
     public DeckSelector() throws IOException {
 
         super(new ArrayList<Component>());
+
+        pageMax = (int) Math.ceil((double) DeckManager.getDeckCount() / DECKS_PER_PAGE);
 
         ///  BUTTONS
         final int CLOSEBUTTON_SIZE = 50;
@@ -44,8 +49,10 @@ public abstract class DeckSelector extends Scene {
 
     }
 
+    // cette fonction update également tout au cas où y'a un nouveau deck
     private List<Component> goToPage(int page) throws IOException {
         this.page = page;
+        this.pageMax = (int) Math.ceil((double) DeckManager.getDeckCount() / DECKS_PER_PAGE);
 
         List<Component> bufferedComponents = getComponents();
         List<Component> toRemove = new ArrayList<>();
@@ -77,6 +84,31 @@ public abstract class DeckSelector extends Scene {
 
         return bufferedComponents;
 
+    }
+
+    private void grayButtons(){
+
+        if (page == 1)
+            buttonPrev.setGrayed(true);
+        else if (page == pageMax)
+            buttonNext.setGrayed(true);
+
+    }
+
+    @Override
+    public void handleAction(int action) {
+        try {
+
+            if (action == -3)
+                setComponents(goToPage(page-1));
+            else if (action == -2)
+                setComponents(goToPage(page+1));
+
+            grayButtons();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override public void drawBG(Graphics2D g2d){
