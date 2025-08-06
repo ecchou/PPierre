@@ -49,7 +49,7 @@ public class DeckManager {
         return saveFile(sb.toString());
     }
 
-    private boolean saveFile(String content) {
+    private static boolean saveFile(String content) {
         // Créer une instance de JFileChooser pour choisir l'emplacement du fichier
         JFileChooser fileChooser = new JFileChooser();
 
@@ -80,7 +80,7 @@ public class DeckManager {
         }
     }
 
-    private String loadFile() {
+    private static String loadFile() {
         // Créer une instance de JFileChooser pour choisir un fichier existant
         JFileChooser fileChooser = new JFileChooser();
 
