@@ -1,8 +1,6 @@
 package GUI.Windows;
 
-import GUI.Scenes.MainMenu;
-import GUI.Scenes.PierresMenu;
-import GUI.Scenes.Scene;
+import GUI.Scenes.*;
 import GUI.Components.Component;
 
 import java.awt.*;
@@ -12,9 +10,12 @@ import java.util.List;
 
 public class MainWindow extends Window{
 
+    // scènes constantes
     private List<Scene> scenes = List.of(
-            new MainMenu(),     // Scène 0 : Menu Princiapl
-            new PierresMenu()   // Scène 1 : Menu Pierres
+            new MainMenu(),                 // Scène 0 : Menu Princiapl
+            new PierresMenu(),              // Scène 1 : Menu Pierres
+            new DeckEditor_Selector(),      // Scène 2 : Editeur de Deck (selecteur)
+            new DeckEditor()                // Scène 3 : Editeur de Deck
     );
     private int currentScene;
 
@@ -48,6 +49,7 @@ public class MainWindow extends Window{
         switch (currentScene){
             case 0 -> action_mainMenu(action);
             case 1 -> action_pierresMenu(action);
+            case 2 -> action_deckEditorSelect(action);
         }
 
     }
@@ -57,6 +59,7 @@ public class MainWindow extends Window{
         // Voir la scène pour les actions
 
         switch(action){
+            case 3 -> switchScene(2);
             case 4 -> switchScene(1);
         }
 
@@ -69,6 +72,16 @@ public class MainWindow extends Window{
         else if (action != 0){
             scenes.get(1).handleAction(action);
             updateScene();
+        }
+
+    }
+
+    private void action_deckEditorSelect(int action) throws IOException {
+
+        if  (action == -1)
+            switchScene(0);
+        else if (action == -4){
+            switchScene(3);
         }
 
     }

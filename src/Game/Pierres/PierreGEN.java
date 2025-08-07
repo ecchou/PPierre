@@ -9,9 +9,13 @@ import java.util.Set;
 public class PierreGEN {
 
     private final static int MAX_ID = 9;
+    private final static int MAX_LV1_ID = 6;
 
     public static Integer getMaxID(){
         return MAX_ID;
+    }
+    public static Integer getMaxLV1_ID(){
+        return MAX_LV1_ID;
     }
 
     public static Pierre genererPierre(int ID, int joueur) throws IOException {

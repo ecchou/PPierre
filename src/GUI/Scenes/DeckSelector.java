@@ -4,6 +4,7 @@ import GUI.Components.Buttons.Button;
 import GUI.Components.Buttons.GrayableButton;
 import GUI.Components.Buttons.SelectorButton;
 import GUI.Components.Component;
+import GUI.Components.Texts.Text;
 import Game.Decks.DeckManager;
 import Game.Pierres.PierreGEN;
 
@@ -21,15 +22,15 @@ public abstract class DeckSelector extends Scene {
     private static final Point DECK_LIST_START = new Point(150, 100);
     private static final int DECKS_PER_PAGE = 5;
 
-    private Image bg = ImageIO.read(new File("img/gui/deckSelectMenu.png"));
+    private Image bg = ImageIO.read(new File("img/gui/bg/deckSelectMenu.png"));
 
     private int page;
     private int pageMax;
     private GrayableButton buttonPrev;
     private GrayableButton buttonNext;
+    private Text pageDisplay = new Text(400, 498, 30, "att", Text.Padding.CENTERED, Color.BLACK);
 
-
-
+    private int selectedDeck = 0;
 
     public DeckSelector() throws IOException {
 
@@ -46,6 +47,11 @@ public abstract class DeckSelector extends Scene {
         addComponent(buttonPrev);
         addComponent(buttonNext);
 
+        ///  TEXT
+        addComponent(pageDisplay);
+
+        goToPage(1);
+        grayButtons();
 
     }
 
@@ -53,6 +59,9 @@ public abstract class DeckSelector extends Scene {
     private List<Component> goToPage(int page) throws IOException {
         this.page = page;
         this.pageMax = (int) Math.ceil((double) DeckManager.getDeckCount() / DECKS_PER_PAGE);
+        if (DeckManager.getDeckCount() == 0)
+            this.pageMax = 1;
+        this.pageDisplay.setText(page + "/" +  pageMax);
 
         List<Component> bufferedComponents = getComponents();
         List<Component> toRemove = new ArrayList<>();
@@ -78,7 +87,7 @@ public abstract class DeckSelector extends Scene {
                     indexDeck,
                     Integer.toString(indexDeck),
                     DeckManager.getDeck(indexDeck).getName(),
-                    ""
+                    Integer.toString(DeckManager.getDeck(indexDeck).getMaxLevel())
             ));
         }
 
@@ -90,7 +99,7 @@ public abstract class DeckSelector extends Scene {
 
         if (page == 1)
             buttonPrev.setGrayed(true);
-        else if (page == pageMax)
+        if (page == pageMax)
             buttonNext.setGrayed(true);
 
     }
@@ -109,10 +118,19 @@ public abstract class DeckSelector extends Scene {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (action > 0){
+            selectedDeck = action;
+        }
+
     }
 
     @Override public void drawBG(Graphics2D g2d){
         g2d.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);
+    }
+
+    public int getSelected(){
+        return selectedDeck;
     }
 
 }

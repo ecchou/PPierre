@@ -31,7 +31,7 @@ public class Deck {
     ///  GETTERS
     public String getName(){return this.name;}
     public List<Pierre> getPierres(){return this.pierres;}
-    public Integer getMaxLevel(){
+    public int getMaxLevel() {
         if (pierres.isEmpty())
             return 0;
 

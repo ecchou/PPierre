@@ -26,7 +26,7 @@ public class PierresMenu extends Scene {
     // Action 0 : Rien
     // Action N : Accéder aux infos de la Pierre ayant N comme ID
 
-    private Image bg = ImageIO.read(new File("img/gui/pierresMenuBG.png"));
+    private Image bg = ImageIO.read(new File("img/gui/bg/pierresMenuBG.png"));
 
     private int page;
     private final int pageMax;
