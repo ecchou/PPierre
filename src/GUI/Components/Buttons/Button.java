@@ -16,15 +16,24 @@ public class Button extends ClickableComponent {
     public int width;
     public int height;
 
-    private String text;
+    private int textSize;
     private Text textElement;
 
     private Color textColor;
     private Color textColorHovered;
 
     // Image par défaut / Images spécifiées
+    public Button(int width, int height, int x, int y, int action, String txt, int txtSize) throws IOException {
+        super(x, y, action);
+        this.textSize = txtSize;
+
+        File Fbtn = new File(getDefaultSpritePath());
+        File FbtnH = new File("img/gui/buttonHovered.png");
+        init(width, height, txt, ImageIO.read(Fbtn), ImageIO.read(FbtnH));
+    }
     public Button(int width, int height, int x, int y, int action, String txt) throws IOException {
         super(x, y, action);
+        this.textSize = height/2;
 
         File Fbtn = new File(getDefaultSpritePath());
         File FbtnH = new File("img/gui/buttonHovered.png");
@@ -32,6 +41,7 @@ public class Button extends ClickableComponent {
     }
     public Button(int width, int height, int x, int y, int action, String txt, Image sprite, Image spriteHover){
         super(x, y, action);
+        this.textSize = height/2;
         init(width, height, txt, sprite, spriteHover);
     }
 
@@ -43,9 +53,11 @@ public class Button extends ClickableComponent {
         this.textColor = new Color(10, 100, 25);
         this.textColorHovered = new Color(10, 200, 25);
 
+
+
         this.textElement = null;
         if (txt != null && !txt.isBlank()){
-            this.textElement = new Text(getX()+w/2, getY()+h/2, h/2, txt, Text.Padding.CENTERED, new Color(10, 100, 25));
+            this.textElement = new Text(getX()+w/2, getY()+h/2, textSize, txt, Text.Padding.CENTERED, new Color(10, 100, 25));
         }
 
     }

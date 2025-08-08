@@ -1,8 +1,6 @@
 package GUI.Scenes;
 
 import GUI.Components.Component;
-import GUI.Windows.MainWindow;
-import GUI.Windows.Window;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,5 +33,6 @@ public abstract class Scene {
     public void setComponents(List<Component> components){this.components = components;}
     public void drawBG(Graphics2D g2d){}
     public void handleAction(int action) throws IOException {}
+    public void switchedScene() throws IOException {}
 
 }

@@ -6,7 +6,6 @@ import GUI.Components.Buttons.SelectorButton;
 import GUI.Components.Component;
 import GUI.Components.Texts.Text;
 import Game.Decks.DeckManager;
-import Game.Pierres.PierreGEN;
 
 import javax.imageio.ImageIO;
 import java.util.List;
@@ -133,4 +132,8 @@ public abstract class DeckSelector extends Scene {
         return selectedDeck;
     }
 
+    @Override
+    public void switchedScene() throws IOException {
+        setComponents(goToPage(1));
+    }
 }

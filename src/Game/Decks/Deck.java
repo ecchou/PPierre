@@ -79,11 +79,19 @@ public class Deck {
         return false;
     }
     public boolean removePierre(Pierre pierre){
+        // Pierre donnée
         if (this.pierres.contains(pierre)){
             this.pierres.remove(pierre);
             return true;
         }
         return false;
+    }
+    public boolean removePierre(int index){
+        // Index donné
+        if (index < 0 || index >= getPierres().size())
+            return false;
+        this.pierres.remove(index);
+        return true;
     }
 
     public boolean importDeck(String code) throws IOException {

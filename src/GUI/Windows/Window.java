@@ -24,8 +24,8 @@ public abstract class Window extends JFrame {
     private List<Component> components;
     private List<Component> clicking = new ArrayList<>();
 
-    private int mouseX;
-    private int mouseY;
+    protected int mouseX;
+    protected int mouseY;
     private boolean mouseMoved = false;
 
     ///  CONSTRUCTEURS

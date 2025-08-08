@@ -5,7 +5,6 @@ import GUI.Components.Component;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainWindow extends Window{
@@ -30,10 +29,22 @@ public class MainWindow extends Window{
             c.setHovered(false);
         }
         this.currentScene = index;
+
+        try{
+            scenes.get(index).switchedScene();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     public void updateScene(){
         setComponents(scenes.get(currentScene).getComponents());
+
+        // rechecker les hover instant pour le spam dans le deck editor par exemple
+        for (Component c : scenes.get(currentScene).getComponents()) {
+            c.setHovered(mouseX, mouseY);
+        }
     }
 
     // peut être plutôt à déléguer à la scène
@@ -50,6 +61,7 @@ public class MainWindow extends Window{
             case 0 -> action_mainMenu(action);
             case 1 -> action_pierresMenu(action);
             case 2 -> action_deckEditorSelect(action);
+            case 3 -> action_deckEditor(action);
         }
 
     }
@@ -70,18 +82,29 @@ public class MainWindow extends Window{
         if (action == -1)
             switchScene(0);
         else if (action != 0){
-            scenes.get(1).handleAction(action);
+            scenes.get(currentScene).handleAction(action);
             updateScene();
         }
 
     }
 
-    private void action_deckEditorSelect(int action) throws IOException {
+    private void action_deckEditorSelect(int action) {
 
         if  (action == -1)
             switchScene(0);
         else if (action == -4){
             switchScene(3);
+        }
+
+    }
+
+    private void action_deckEditor(int action) throws IOException {
+
+        if (action == -1)
+            switchScene(2);
+        else if (action != 0) {
+            scenes.get(currentScene).handleAction(action);
+            updateScene();
         }
 
     }
