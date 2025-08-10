@@ -4,7 +4,7 @@ import java.net.*;
 import java.util.*;
 
 public class Server {
-    private static List<ClientHandler> clients = new ArrayList<>();
+    public static List<ClientHandler> clients = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(5000);
@@ -33,39 +33,3 @@ public class Server {
     }
 }
 
-class ClientHandler implements Runnable {
-    private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
-    private int id;
-
-    public ClientHandler(Socket socket, int id) throws IOException {
-        this.socket = socket;
-        this.id = id;
-        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("OK JOIN");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void sendMessage(String message) {
-        out.println(message);
-    }
-
-    public void run() {
-        try {
-            String msg;
-            while ((msg = in.readLine()) != null) {
-                System.out.println("Client " + id + " : " + msg);
-                if (msg.startsWith("MOVE")) {
-                    Server.sendToOther(id, msg);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Client déconnecté.");
-        }
-    }
-}

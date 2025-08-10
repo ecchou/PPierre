@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class MainMenu extends Scene {
 
     // Action 0 : Rien
-    // Action 1 :
-    // Action 2 :
-    // Action 3 :
+    // Action 1 : Rejoindre
+    // Action 2 : Créer
+    // Action 3 : Deck
     // Action 4 : Infos Pierres
 
     private final Color bgGradient1 = new Color(50, 160, 160);
