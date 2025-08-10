@@ -46,11 +46,15 @@ public class DeckEditor extends Scene {
 
     private Deck deck;
 
+    private Deck deckToModify;
+    private boolean editing;
+
     public DeckEditor() throws IOException {
 
         super(new ArrayList<>());
 
         this.deck = new Deck();
+        this.editing = false;
 
         ///  MESSAGES
         msgSaved = new Message(true, "Deck Sauvegardé", Color.WHITE);
@@ -178,13 +182,48 @@ public class DeckEditor extends Scene {
              msgUnnamed.show(1);
          else{
 
-             DeckManager.addDeck(deck);
-             this.deck = new Deck();
-             setComponents(drawDeck());
+             if (!editing) {
+                 DeckManager.addDeck(deck);
+                 this.deck = new Deck();
+                 setComponents(drawDeck());
+             }
+             else{
+                 // On recopie de l'autre sens (pas par référence cette fois !!)
+                 this.deckToModify.setPierres(deck.getPierres());
+                 this.deckToModify.setName(deck.getName());
+             }
 
              msgSaved.show(1);
 
          }
+
+    }
+
+    public void editDeck(Deck d) throws IOException {
+
+        if (d == null){
+            this.editing = false;
+            nomDeck.setText("");
+            this.deck = new Deck();
+        }
+        else{
+
+            this.editing = true;
+
+            // On retient le Deck à modifier par référence
+            this.deckToModify = d;
+
+            // Clonage du Deck à modifier
+            this.deck = new Deck();
+            this.deck.setPierres(d.getPierres());
+            this.deck.setName(d.getName());
+
+            // Affichage du nom du Deck
+            nomDeck.setText(d.getName());
+
+        }
+
+        setComponents(drawDeck());
 
     }
 

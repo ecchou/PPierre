@@ -5,6 +5,7 @@ import GUI.Components.Buttons.GrayableButton;
 import GUI.Components.Buttons.SelectorButton;
 import GUI.Components.Component;
 import GUI.Components.Texts.Text;
+import Game.Decks.Deck;
 import Game.Decks.DeckManager;
 
 import javax.imageio.ImageIO;
@@ -23,12 +24,13 @@ public abstract class DeckSelector extends Scene {
 
     private Image bg = ImageIO.read(new File("img/gui/bg/deckSelectMenu.png"));
 
-    private int page;
+    protected int page;
     private int pageMax;
     private GrayableButton buttonPrev;
     private GrayableButton buttonNext;
     private Text pageDisplay = new Text(400, 498, 30, "att", Text.Padding.CENTERED, Color.BLACK);
 
+    private List<SelectorButton> deckButtons = new ArrayList<>();
     private int selectedDeck = 0;
 
     public DeckSelector() throws IOException {
@@ -55,7 +57,7 @@ public abstract class DeckSelector extends Scene {
     }
 
     // cette fonction update également tout au cas où y'a un nouveau deck
-    private List<Component> goToPage(int page) throws IOException {
+    protected List<Component> goToPage(int page) throws IOException {
         this.page = page;
         this.pageMax = (int) Math.ceil((double) DeckManager.getDeckCount() / DECKS_PER_PAGE);
         if (DeckManager.getDeckCount() == 0)
@@ -78,7 +80,7 @@ public abstract class DeckSelector extends Scene {
             if (indexDeck > DeckManager.getDeckCount())
                 break;
 
-            bufferedComponents.add(new SelectorButton(
+            SelectorButton deckButton = new SelectorButton(
                     DECK_LIST_START.x,
                     DECK_LIST_START.y+i*SB_HEIGHT,
                     SB_WIDTH,
@@ -86,8 +88,10 @@ public abstract class DeckSelector extends Scene {
                     indexDeck,
                     Integer.toString(indexDeck),
                     DeckManager.getDeck(indexDeck).getName(),
-                    Integer.toString(DeckManager.getDeck(indexDeck).getMaxLevel())
-            ));
+                    DeckManager.getDeck(indexDeck).getPierres().size() + " - " + DeckManager.getDeck(indexDeck).getMaxLevel()
+            );
+            deckButtons.add(deckButton);
+            bufferedComponents.add(deckButton);
         }
 
         return bufferedComponents;
@@ -119,7 +123,7 @@ public abstract class DeckSelector extends Scene {
         }
 
         if (action > 0){
-            selectedDeck = action;
+            select(action);
         }
 
     }
@@ -132,8 +136,21 @@ public abstract class DeckSelector extends Scene {
         return selectedDeck;
     }
 
+    public void select(int indexDeck){
+
+        selectedDeck = indexDeck;
+        for (SelectorButton c : deckButtons){
+            if (c.getAction() == indexDeck)
+                c.select();
+            else
+                c.deselect();
+        }
+
+    }
+
     @Override
     public void switchedScene() throws IOException {
         setComponents(goToPage(1));
+        select(0);
     }
 }

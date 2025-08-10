@@ -2,6 +2,7 @@ package GUI.Windows;
 
 import GUI.Scenes.*;
 import GUI.Components.Component;
+import Game.Decks.DeckManager;
 
 import java.awt.*;
 import java.io.IOException;
@@ -9,12 +10,15 @@ import java.util.List;
 
 public class MainWindow extends Window{
 
+    private DeckEditor_Selector deckEditor_selector = new DeckEditor_Selector();
+    private DeckEditor deckEditor = new DeckEditor();
+
     // scènes constantes
     private List<Scene> scenes = List.of(
             new MainMenu(),                 // Scène 0 : Menu Princiapl
             new PierresMenu(),              // Scène 1 : Menu Pierres
-            new DeckEditor_Selector(),      // Scène 2 : Editeur de Deck (selecteur)
-            new DeckEditor()                // Scène 3 : Editeur de Deck
+            deckEditor_selector,      // Scène 2 : Editeur de Deck (selecteur)
+            deckEditor                     // Scène 3 : Editeur de Deck
     );
     private int currentScene;
 
@@ -88,13 +92,20 @@ public class MainWindow extends Window{
 
     }
 
-    private void action_deckEditorSelect(int action) {
+    private void action_deckEditorSelect(int action) throws IOException {
 
         if  (action == -1)
             switchScene(0);
         else if (action == -4){
+            deckEditor.editDeck(null);
             switchScene(3);
         }
+        else if (action == -5){
+            deckEditor.editDeck(DeckManager.getDeck(deckEditor_selector.getSelected()));
+            switchScene(3);
+        }
+        else if (action != 0)
+            scenes.get(currentScene).handleAction(action);
 
     }
 

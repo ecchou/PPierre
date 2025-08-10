@@ -151,16 +151,18 @@ public abstract class Window extends JFrame {
 
         drawBG(g2d);
 
+        List<Component> buffer = new ArrayList<>(components);
         // Mise à jour des hover si souris bougée
         if (mouseMoved) {
             //System.out.println(mouseX + " ; " + mouseY);
-            for (Component component : components)
+            for (Component component : buffer)
                 component.setHovered(mouseX, mouseY);
             mouseMoved = false;
         }
 
         // Dessiner tous les composants
-        for (Component component : components) {
+
+        for (Component component : buffer) {
             component.draw(g2d);
         }
 
@@ -175,14 +177,16 @@ public abstract class Window extends JFrame {
 
     ///  INTERACTIONS
     public void press(int x, int y) {
-        for (Component component : components) {
+        List<Component> buffer = new ArrayList<>(components);
+        for (Component component : buffer) {
             if (component.isHovered())
                 clicking.add(component);
         }
     }
 
     public void release(int x, int y) {
-        for (Component component : components) {
+        List<Component> buffer = new ArrayList<>(components);
+        for (Component component : buffer) {
             if (component.isHovered() && clicking.contains(component)){
                 try {
                     action(component.getAction());

@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,10 @@ public class DeckManager {
     private static int deckCount = 0;
     private static Map<Integer, Deck> decks = new HashMap<>();
 
+
     ///  GETTERS
     public static int getDeckCount(){return deckCount;}
     public static Deck getDeck(int id){return decks.get(id);}
-
 
     ///  SETTERS
     public static void addDeck(Deck d){
@@ -38,6 +39,13 @@ public class DeckManager {
         for (int i = index; i < deckCount; i++){
             decks.put(i, decks.get(i+1));
         }
+
+        deckCount--;
+    }
+
+    private static void clearDecks(){
+        decks.clear();
+        deckCount = 0;
     }
 
     public static boolean saveDecks(){
@@ -49,8 +57,49 @@ public class DeckManager {
             sb.append(d.exportDeck());
             sb.append("\n");
         }
+        sb.append(";"); // signifie la fin de la lecture
 
         return saveFile(sb.toString());
+    }
+
+    public static boolean loadDecks() throws IOException {
+
+        String codesRaw = loadFile();
+        List<String> codes;
+        List<Deck> decks = new ArrayList<>();
+
+        if (codesRaw == null)
+            return false;
+
+        codes = List.of(codesRaw.split("\\R"));
+
+        for (String code : codes){
+
+            if (code.startsWith(";"))
+                break;
+
+            Deck d = new Deck();
+            boolean succes;
+            succes = d.importDeck(code);
+
+            if (!succes)
+                return false;
+
+            decks.add(d);
+
+        }
+
+        if (decks.isEmpty())
+            return false;
+
+        // Si ici, c'est good
+        clearDecks();
+        for (Deck d : decks){
+            addDeck(d);
+        }
+
+        return true;
+
     }
 
     private static boolean saveFile(String content) {
@@ -58,7 +107,7 @@ public class DeckManager {
         JFileChooser fileChooser = new JFileChooser();
 
         // Définir l'extension par défaut à "txt", mais l'utilisateur peut modifier ou ne pas mettre d'extension
-        fileChooser.setSelectedFile(new File("sauvegarde"));
+        fileChooser.setSelectedFile(new File("decks.sav"));
 
         // Ouvrir la fenêtre de dialogue pour choisir un emplacement de sauvegarde
         int userChoice = fileChooser.showSaveDialog(null);
@@ -95,7 +144,14 @@ public class DeckManager {
         if (userChoice == JFileChooser.APPROVE_OPTION) {
             // Obtenir le fichier sélectionné
             File selectedFile = fileChooser.getSelectedFile();
-            return selectedFile.getAbsolutePath();  // Retourner le chemin du fichier
+
+            try {
+                return Files.readString(selectedFile.toPath());
+            } catch (IOException e) {
+                return null;
+            }
+
+
         } else {
             System.out.println("Chargement annulé.");
             return null;  // Si l'utilisateur annule, retourner null

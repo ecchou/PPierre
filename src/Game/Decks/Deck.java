@@ -45,11 +45,14 @@ public class Deck {
     public String exportDeck(){
         if (pierres.isEmpty())
             return null;
+        if (name == null || name.isBlank())
+            return null;
 
         StringBuilder sb = new StringBuilder();
+        sb.append(name);
         for (Pierre pierre : pierres){
-            sb.append(pierre.getID());
             sb.append(",");
+            sb.append(pierre.getID());
         }
 
         return sb.toString();
@@ -96,21 +99,24 @@ public class Deck {
 
     public boolean importDeck(String code) throws IOException {
 
-        String regex = "^[0-9]+(,[0-9]+)*$";
+        String regex = "^([^,]+)(?:,([0-9]+))+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(code);
 
         if (!matcher.matches())
             return false;
 
-        List<String> strPierres = List.of(code.split(","));
-        List<Pierre> pierres = new ArrayList<>();
 
-        for (String strPierre : strPierres) {
-            int ID = Integer.parseInt(strPierre);
+        String name = matcher.group(1);
+
+        ArrayList<Pierre> pierres = new ArrayList<>();
+        String[] parts = code.split(",", -1); // découper la chaîne
+        for (int i = 1; i < parts.length; i++) { // i = 1 pour ignorer le premier bloc (nom)
+            int ID = Integer.parseInt(parts[i]);
             pierres.add(PierreGEN.genererPierre(ID, 0));
         }
 
+        this.name = name;
         this.pierres = pierres;
         return true;
 
