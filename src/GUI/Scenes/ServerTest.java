@@ -7,7 +7,9 @@ import GUI.Components.Texts.Text;
 import Online.ClientHandler;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -37,11 +39,13 @@ public class ServerTest extends Scene {
         super(new ArrayList<Component>());
 
         ///  BOUTONS
-        addComponent(new Button(300, 200, 10, 10, 1, "creer"));
-        btnSend = new GrayableButton(300, 200, 10, 10+200+10, 2, "envoyer");
-        btnEnd = new GrayableButton(300, 200, 10, (10+200)*2+10, 3, "fermer");
+        addComponent(new Button(150, 100, 10, 10, 1, "creer"));
+        btnSend = new GrayableButton(150, 100, 10, 10+100+10, 2, "envoyer");
+        btnEnd = new GrayableButton(150, 100, 10, (10+100)*2+10, 3, "fermer");
         addComponent(btnSend);
+        addComponent(btnEnd);
         btnSend.setGrayed(true);
+        btnEnd.setGrayed(true);
 
         ///  TXT
         statusText = new Text(400, (10+200)*2+10, 25, "Pas de partie", Text.Padding.CENTERED, Color.BLACK);
@@ -70,6 +74,7 @@ public class ServerTest extends Scene {
                 return;
             }
 
+            // thread créer serveur
             new Thread(() -> {
                 try {
                     chaussette = new ServerSocket(5000);
@@ -77,12 +82,13 @@ public class ServerTest extends Scene {
                     System.out.println("Serveur en attente de joueurs...");
                     btnEnd.setGrayed(false);
 
-                    while (!chaussette.isClosed()) {
+                    while (Server.clients.size() < 2) {
                         Socket clientSocket = chaussette.accept();
 
                         // un joueur vient de se co
                         statusText.setText("Qqn est co");
                         btnSend.setGrayed(false);
+                        btnEnd.setGrayed(false);
 
                         ClientHandler handler = new ClientHandler(clientSocket, Server.clients.size());
                         Server.clients.add(handler);
@@ -93,10 +99,33 @@ public class ServerTest extends Scene {
                 }
             }).start();
 
+            // thread rejoindre serv
+            new Thread(() -> {
+                try {
+                    Socket socket = new Socket("localhost", 5000);
+                    out = new PrintWriter(socket.getOutputStream(), true);
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    new Thread(() -> {
+                        try {
+                            String msg;
+                            while ((msg = in.readLine()) != null) {
+                                System.out.println("Reçu : " + msg);
+                                statusText.setText("Reçu : " + msg);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
         }
         // envoi de message
         if (action == 2){
-            out.println("MOVE 5 5");
+            out.println("yo jsuis l'hebergeur");
         }
 
     }

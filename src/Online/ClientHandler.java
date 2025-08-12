@@ -17,7 +17,7 @@ public class ClientHandler implements Runnable {
         this.id = id;
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("OK JOIN");
+        out.println("OK JOIN " + id);
     }
 
     public int getId() {

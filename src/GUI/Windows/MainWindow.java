@@ -13,6 +13,8 @@ public class MainWindow extends Window{
     private DeckEditor_Selector deckEditor_selector = new DeckEditor_Selector();
     private DeckEditor deckEditor = new DeckEditor();
     private ServerTest servTest = new ServerTest();
+    private ClientTest clientTest = new ClientTest();
+    private CreateLobby createLobby = new CreateLobby();
 
     // scènes constantes
     private List<Scene> scenes = List.of(
@@ -20,7 +22,9 @@ public class MainWindow extends Window{
             new PierresMenu(),              // Scène 1 : Menu Pierres
             deckEditor_selector,             // Scène 2 : Editeur de Deck (selecteur)
             deckEditor,                     // Scène 3 : Editeur de Deck
-            servTest                        // Scène 4 : Server Test
+            servTest,                        // Scène 4 : Server Test
+            clientTest,                      // Scene 5 : Client Test
+            createLobby                     // Scène 6 : Créer Lobby
     );
     private int currentScene;
 
@@ -68,7 +72,7 @@ public class MainWindow extends Window{
             case 1 -> action_pierresMenu(action);
             case 2 -> action_deckEditorSelect(action);
             case 3 -> action_deckEditor(action);
-            case 4 -> action_servTest(action);
+            case 4, 5 -> action_servClientTest(action);
         }
 
     }
@@ -78,7 +82,8 @@ public class MainWindow extends Window{
         // Voir la scène pour les actions
 
         switch(action){
-            case 2 -> switchScene(4);
+            case 1 -> switchScene(5);
+            case 2 -> switchScene(6);
             case 3 -> switchScene(2);
             case 4 -> switchScene(1);
         }
@@ -124,9 +129,9 @@ public class MainWindow extends Window{
 
     }
 
-    private void action_servTest(int action) throws IOException{
+    private void action_servClientTest(int action) throws IOException{
 
-
+        scenes.get(currentScene).handleAction(action);
 
     }
 
