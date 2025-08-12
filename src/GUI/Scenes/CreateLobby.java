@@ -6,6 +6,7 @@ import GUI.Components.Texts.Message;
 import GUI.Components.Texts.Text;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +23,14 @@ public class CreateLobby extends Scene {
 
     private Image bg = ImageIO.read(new File("img/gui/bg/lobbyCreateBG.png"));
 
+    private String pseudo;
+    private int port;
+
     private final Text txtPseudo;
     private final Text txtPort;
 
     private final Message msgPasUnPort;
+    private final Message msgPasUnPseudo;
     private final Message msgPseudoInvalide;
     private final Message msgPortInvalide;
 
@@ -54,10 +59,52 @@ public class CreateLobby extends Scene {
         ///  MESSAGES
         msgPasUnPort = new Message(true, "Port Invalide (Range Valide : 1020-65535)", Color.RED);
         msgPortInvalide = new Message(true, "Port Manquant (Range Valide : 1020-65535)", Color.RED);
+        msgPasUnPseudo = new Message(true, "Votre Pseudo doit faire 3-15 caractères.", Color.RED);
         msgPseudoInvalide = new Message(true, "Pseudo Invalide", Color.RED);
         addComponent(msgPasUnPort);
         addComponent(msgPseudoInvalide);
         addComponent(msgPortInvalide);
+
+    }
+
+    @Override
+    public void handleAction(int action){
+
+        if (action == 1)
+            changeUsername();
+        else if (action == 2)
+            changePort();
+
+    }
+
+    private void changePort(){
+
+        String strPort = JOptionPane.showInputDialog(null, "Votre Port");
+        if (strPort == null || strPort.isBlank() || !strPort.matches("\\d+")){
+            msgPasUnPort.show(1);
+            return;
+        }
+        int port =  Integer.parseInt(strPort);
+        if (port < 1020 || port > 65535){
+            msgPasUnPort.show(1);
+            return;
+        }
+
+        this.port = port;
+        txtPort.setText("Port : " + this.port);
+
+    }
+
+    private void changeUsername(){
+
+        String name = JOptionPane.showInputDialog(null, "Votre Pseudo");
+        if (name == null || name.isBlank() || name.length()>20){
+            msgPasUnPseudo.show(1);
+            return;
+        }
+
+        this.pseudo = name;
+        txtPseudo.setText("Pseudo : " + this.pseudo);
 
     }
 

@@ -73,6 +73,18 @@ public class MainWindow extends Window{
             case 2 -> action_deckEditorSelect(action);
             case 3 -> action_deckEditor(action);
             case 4, 5 -> action_servClientTest(action);
+            case 6 -> action_createLobby(action);
+        }
+
+    }
+
+    private void action_createLobby(int action) throws IOException {
+
+        if (action == -1){
+            switchScene(0);
+        }
+        else{
+            scenes.get(currentScene).handleAction(action);
         }
 
     }
